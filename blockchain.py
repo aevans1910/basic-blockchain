@@ -54,6 +54,27 @@ class Blockchain(object):
 
         return self.chain[-1]
 
+    def proof_of_work(self, last_proof):
+        """This method is where you the consensus algorithm is implemented. It takes two parameters 
+        including self and last_proof"""
+
+        proof = 0
+
+        while self.valid_proof(last_proof, proof) is False:
+            proof += 1
+        return proof
+
+    @staticmethod
+
+    def valid_proof(last_proof, proof):
+        """This method validates the block"""
+
+        guess = f'{last_proof}{proof}'.encode()
+        guess_hash = hashlib.sha256(guess).hexdigest()
+
+        return guess_hash[:4] == "0000"
+    
+
 
 
     
